@@ -17,6 +17,6 @@ class App(BasePage):
         self.driver.implicitly_wait(20)
         return self
 
-    def goto_index_page(self) -> IndexPage:
+    def goto_index_page(self):
         # 进入到首页
         return IndexPage(self.driver)
