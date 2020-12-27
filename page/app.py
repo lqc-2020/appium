@@ -18,5 +18,4 @@ class App(BasePage):
         return self
 
     def goto_index_page(self):
-        # 进入到首页
         return IndexPage(self.driver)
