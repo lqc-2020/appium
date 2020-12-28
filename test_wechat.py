@@ -33,4 +33,5 @@ class TestWechat:
         self.driver.find_element(MobileBy.XPATH,"//*[@text='外出打卡']").click()
         self.driver.find_element(MobileBy.XPATH,"//*[contains(@text,'第')]").click()
         WebDriverWait(self.driver,10).until(lambda x: "外出打卡成功" in x.page_source)
+        print(self.driver.page_source)
         assert "外出打卡成功" in self.driver.page_source

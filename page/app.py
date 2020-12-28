@@ -11,8 +11,9 @@ class App(BasePage):
         caps["noReset"] = "true"
         caps["appPackage"] = "com.tencent.wework"
         caps["appActivity"] = ".launch.LaunchSplashActivity"
+        caps["automationName"] = 'Uiautomator2'
         # caps["ensureWebviewsHavePages"] = True
-        caps['settings[waitForIdleTimeout]'] = 0  # 设置空闲等待时间为0ms
+        #caps['settings[waitForIdleTimeout]'] = 0  # 设置空闲等待时间为0ms
         self.driver = webdriver.Remote("http://localhost:4723/wd/hub", caps)
         self.driver.implicitly_wait(20)
         return self
