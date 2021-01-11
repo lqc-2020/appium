@@ -1,17 +1,35 @@
 import logging
 from time import sleep
 
+import yaml
+from appium import webdriver
 from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 
 
 class BasePage:
-    def __init__(self,driver:WebDriver=None):
-        self.driver = driver
+    FIND = 'find'
+    ACTION = 'action'
+    FIND_AND_CLICK = 'find_and_click'
+    SEND = 'find_and_send'
+    CONTENT = 'content'
+    SLIDE = 'slide'
+    def __init__(self):
+        caps = {}
+        caps["platformName"] = "android"
+        caps["noReset"] = "true"
+        caps["appPackage"] = "com.tencent.wework"
+        caps["appActivity"] = ".launch.LaunchSplashActivity"
+        caps["automationName"] = 'Uiautomator2'
+        # caps["ensureWebviewsHavePages"] = True
+        # caps['settings[waitForIdleTimeout]'] = 0  # 设置空闲等待时间为0ms
+        self.driver = webdriver.Remote("http://localhost:4723/wd/hub", caps)
+        self.driver.implicitly_wait(5)
 
     def find(self,By,locator):
         return self.driver.find_element(By,locator)
+
 
     def find_and_click(self,By,locator):
         return self.find(By,locator).click()
@@ -29,6 +47,20 @@ class BasePage:
 
     def time_wait(self):
         return WebDriverWait(self.driver, 10).until(lambda x: x.find_element(MobileBy.XPATH, "//*[@text='女']"))
+
+    def load(self,yaml_path):
+        with open(yaml_path,'r',encoding='utf-8') as f:
+            data = yaml.load(f)
+        for ele in data:
+            xpath_expr = ele.get(self.FIND)
+            action = ele.get(self.ACTION)
+            if action == self.FIND_AND_CLICK:
+                self.find_and_click(MobileBy.XPATH,xpath_expr)
+            elif action == self.SEND:
+                content = ele.get(self.CONTENT)
+                self.find_and_send(MobileBy.XPATH,xpath_expr,content)
+            elif action == self.SLIDE:
+                self.slide(xpath_expr).click()
 
 
     def res(self):

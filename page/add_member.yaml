@@ -1,0 +1,2 @@
+- find: //*[@text='手动输入添加']
+  action: find_and_click

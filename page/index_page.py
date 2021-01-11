@@ -1,10 +1,11 @@
 from appium.webdriver.common.mobileby import MobileBy
 
 from page.address_list_page import AddressList
-from page.basepage import BasePage
+from page.pre_page import PrePage
 
 
-class IndexPage(BasePage):
+class IndexPage(PrePage):
     def goto_address_list(self):
-        self.find(MobileBy.XPATH,"//*[@resource-id='com.tencent.wework:id/elq' and @text='通讯录']").click()
-        return AddressList(self.driver)
+        self.basepage.load("../page/index.yaml")
+        #self.basepage.find(MobileBy.XPATH, "//*[@resource-id='com.tencent.wework:id/elq' and @text='通讯录']").click()
+        return AddressList(self.basepage)

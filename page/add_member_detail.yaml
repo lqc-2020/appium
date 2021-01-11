@@ -1,0 +1,6 @@
+- find: //*[contains(@text,'姓名')]/../*[@text='必填']
+  action: find_and_parameterize_send
+- find: //*[contains(@text, '性别')]/..//*[@text='男']
+  action: find_and_click
+- find: //*[@text='男']
+  action: find_and_click
