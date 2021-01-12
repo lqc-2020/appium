@@ -8,6 +8,7 @@ from testcases.conftest import get_datas
 
 class TestAddMember:
 
+
     @pytest.mark.parametrize("name,phone,sex",get_datas()['add']['data'],ids=get_datas()['add']['ids'])
     def test_ccc(self,name,phone,sex):
         basepage = BasePage()

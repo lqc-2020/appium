@@ -7,6 +7,8 @@ from appium.webdriver.common.mobileby import MobileBy
 from appium.webdriver.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 
+from page.black_handle import black_wrapper
+
 
 class BasePage:
     FIND = 'find'
@@ -26,10 +28,14 @@ class BasePage:
         # caps['settings[waitForIdleTimeout]'] = 0  # 设置空闲等待时间为0ms
         self.driver = webdriver.Remote("http://localhost:4723/wd/hub", caps)
         self.driver.implicitly_wait(5)
+        self.black_list = [(MobileBy.XPATH, "//*[@resource-id='com.tencent.wework:id/idp']")]
 
+    @black_wrapper
     def find(self,By,locator):
         return self.driver.find_element(By,locator)
 
+    def finds(self,By, locator):
+        return self.driver.find_elements(By, locator)
 
     def find_and_click(self,By,locator):
         return self.find(By,locator).click()
@@ -72,3 +78,6 @@ class BasePage:
             # result = self.find(MobileBy.XPATH, "//*[@class='androexcept:
         except:
             print('没找到toast')
+
+    def screenshot(self, picture_path):
+        self.driver.save_screenshot(picture_path)

@@ -1,2 +1,4 @@
+- find: //*[@resource-id='com.tencent.wework:id/ie_']
+  action: find_and_click
 - find: //*[@resource-id='com.tencent.wework:id/elq' and @text='通讯录']
   action: find_and_click
